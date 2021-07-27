@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:id="@+id/all"
+    android:icon="@drawable/ic_insert_picture_icon"
+    android:title="All"/>
+    <item android:id="@+id/news"
+        android:icon="@drawable/ic_image"
+        android:title="New"/>
+    <item android:id="@+id/category"
+        android:icon="@drawable/ic_menu"
+        android:title="Category"/>
+
+</menu>
