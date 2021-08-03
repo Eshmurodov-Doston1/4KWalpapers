@@ -22,4 +22,14 @@
         android:name="com.example.a4kwalpapers.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/categoryListImageFragment"
+        android:name="com.example.a4kwalpapers.fragments.CategoryListImageFragment"
+        android:label=""
+        tools:layout="@layout/fragment_category_list_image" />
+    <fragment
+        android:id="@+id/loadImageFragment"
+        android:name="com.example.a4kwalpapers.fragments.LoadImageFragment"
+        android:label=""
+        tools:layout="@layout/fragment_load_image" />
 </navigation>

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.NewFragment">
+    tools:context=".fragments.CategoryListImageFragment">
     <com.github.ybq.android.spinkit.SpinKitView
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -17,7 +17,7 @@
         android:layout_gravity="center"
         app:SpinKit_Color="@color/white" />
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/my_rv"
+        android:id="@+id/category_rv"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="3"
         tools:listitem="@layout/item_image"

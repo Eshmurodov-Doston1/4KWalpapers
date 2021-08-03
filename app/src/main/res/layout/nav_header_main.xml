@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:background="@color/white"
+    android:background="#131B2A"
     android:gravity="bottom"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -31,7 +31,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="@dimen/_15sdp"
         android:textStyle="bold"
         android:layout_width="wrap_content"

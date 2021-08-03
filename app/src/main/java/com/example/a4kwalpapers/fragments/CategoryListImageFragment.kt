@@ -8,13 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.a4kwalpapers.R
 import com.example.a4kwalpapers.adapters.AdapterImage
-import com.example.a4kwalpapers.databinding.FragmentImagesBinding
+import com.example.a4kwalpapers.databinding.FragmentCategoryListImageBinding
 import com.example.a4kwalpapers.models.Result
 import com.example.a4kwalpapers.retrofit.ApiClient
 import com.example.a4kwalpapers.utils.MyList
@@ -30,10 +29,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [ImagesFragment.newInstance] factory method to
+ * Use the [CategoryListImageFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ImagesFragment : Fragment() {
+class CategoryListImageFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -45,27 +44,31 @@ class ImagesFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-    lateinit var fragmentImagesBinding: FragmentImagesBinding
+    lateinit var fragmentCategoryListImageBinding:FragmentCategoryListImageBinding
     lateinit var root:View
     lateinit var appViewModel: AppViewModel
     lateinit var adapterImage:AdapterImage
     lateinit var handler: Handler
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       fragmentImagesBinding = FragmentImagesBinding.inflate(inflater,container,false)
-        root =fragmentImagesBinding.root
+      fragmentCategoryListImageBinding = FragmentCategoryListImageBinding.inflate(inflater,container,false)
+        root = fragmentCategoryListImageBinding.root
         handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
-            fragmentImagesBinding.spinKit.visibility = View.INVISIBLE
-        },5000)
+            fragmentCategoryListImageBinding.spinKit.visibility = View.INVISIBLE
+        },3000)
+        val category = arguments?.getString("name")
+        (activity as AppCompatActivity).supportActionBar?.title = category
+
         adapterImage = AdapterImage(object:AdapterImage.OnItemClickListener{
             override fun onItemClick(result: Result, position: Int) {
                 var bundle = Bundle()
                 bundle.putInt("position",position)
                 bundle.putString("image",result.urls.regular)
+                bundle.putString("category",category)
+
                 findNavController().navigate(R.id.loadImageFragment,bundle)
             }
 
@@ -74,16 +77,17 @@ class ImagesFragment : Fragment() {
             }
 
         })
-        appViewModel = ViewModelProviders.of(this,ViewModelFactory("All",ApiClient.apiServise))[AppViewModel::class.java]
+        appViewModel = ViewModelProviders.of(this,
+            category?.let { ViewModelFactory(it, ApiClient.apiServise) })[AppViewModel::class.java]
         lifecycleScope.launch {
             appViewModel.unsplashImage.collect {
                 adapterImage.submitData(it)
-
             }
         }
-        fragmentImagesBinding.myRv.adapter = adapterImage
+        fragmentCategoryListImageBinding.categoryRv.adapter = adapterImage
         return root
     }
+
 
     companion object {
         /**
@@ -92,12 +96,12 @@ class ImagesFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment ImagesFragment.
+         * @return A new instance of fragment CategoryListImageFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            ImagesFragment().apply {
+            CategoryListImageFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
